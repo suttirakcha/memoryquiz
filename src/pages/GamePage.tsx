@@ -66,33 +66,15 @@ const GamePage = () => {
     score > 200 && setNumRange(100000000)
   }, [score, enteredNum, setEnteredNum])
 
-  const checkIfTimesUp = () => {
+  const checkIfGameOver = (text: string) => {
     setGameOver({
       open: true,
-      text: "Time's up"
+      text: text
     })
     setTimeout(() => {
       setGameOver({
         open: false,
-        text: "Time's up"
-      })
-      setChangingSection(true)
-    }, 2000)
-    setTimeout(() => {
-      setChangingSection(false)
-      setShowResult(true)
-    }, 2300)
-  }
-
-  const checkIfGameIsOver = () => {
-    setGameOver({
-      open: true,
-      text: "Game Over!"
-    })
-    setTimeout(() => {
-      setGameOver({
-        open: false,
-        text: "Game Over!"
+        text: text
       })
       setChangingSection(true)
     }, 2000)
@@ -108,7 +90,7 @@ const GamePage = () => {
       nextNumber()
     } else {
       setTimeout(() => {
-        checkIfGameIsOver()
+        checkIfGameOver("Game over!")
       }, 500)
     }
   }
@@ -142,7 +124,7 @@ const GamePage = () => {
                   isPlaying={enteredNum === undefined} 
                   duration={timer} 
                   className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
-                  onComplete={checkIfTimesUp}
+                  onComplete={() => checkIfGameOver("Time's up")}
                 />
                 <p className={`absolute font-semibold text-2xl -right-12 top-8 ${didntSeeNumber ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer - 3</p>
               </div>
