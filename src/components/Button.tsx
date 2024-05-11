@@ -1,8 +1,4 @@
-interface ButtonProps {
-  onClick: () => void
-  text: string
-  className?: string
-}
+import { ButtonProps } from "../types"
 
 const Button = ({ onClick, text, className } : ButtonProps) => {
   return (
