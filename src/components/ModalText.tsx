@@ -1,7 +1,4 @@
-interface ModalTextProps {
-  text: string
-  isOpen: boolean
-}
+import { ModalTextProps } from "../types"
 
 const ModalText = ({ text, isOpen } : ModalTextProps) => {
   return (

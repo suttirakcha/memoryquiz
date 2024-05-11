@@ -138,7 +138,7 @@ const GamePage = () => {
                   onKeyDown={(e) => {(e.key === "Enter" && numValue) && handleEnter()}}
                   value={numValue || ""} 
                   className={`w-full max-w-lg border outline-none text-black ${hideNumber ? 'fade-in-input opacity-0' : ''} text-center ${enteredNum == num ? "bg-green-600 border-green-700 text-white" : enteredNum === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 p-3 text-4xl rounded-full`}
-                  disabled={enteredNum !== undefined}
+                  disabled={enteredNum !== undefined || gameOver.open}
                 />
                 <div className={`${hideNumber ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4`}>
                   <Button onClick={() => {numValue && handleEnter()}} text="Enter"/>
@@ -146,7 +146,7 @@ const GamePage = () => {
                 </div>
               </section>
             ) : (
-              <h1 className={`text-[108px] font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>{num}</h1>
+              <h1 className={`${numRange >= 1000000 ? 'text-[90px] md:text-[108px]' : 'text-[108px]'} font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>{num}</h1>
             )}
         </>
       )}

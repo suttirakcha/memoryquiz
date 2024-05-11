@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Button from "../components/Button"
-import TimerCircle from "../components/Timer"
 import { useNavigate } from "react-router-dom"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import NumFloat from "../components/NumFloat"
@@ -13,6 +12,16 @@ const MainPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [animate, setAnimate] = useState(false)
+  const [numFloat, setNumFloat] = useState((Math.floor(Math.random() * 10) + 1))
+
+  const showNumFloat = () => {
+    const comp = []
+    for (let i = 0; i < numFloat; i++){
+      comp.push(<NumFloat />)
+    }
+
+    return comp
+  }
 
   const changeIndex = (index: number) => {
     setAnimate(true)
@@ -30,7 +39,7 @@ const MainPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-y-10 items-center justify-center h-[75vh] p-6 md:p-10">
+    <div className="flex flex-col gap-y-10 items-center justify-center h-[75vh] p-6 pt-10 md:p-10">
       {currentIndex === 2 ? (
         <div className={animate ? "fade-out-number" : "fade-in-number"}>
           <CountdownCircleTimer
@@ -56,7 +65,7 @@ const MainPage = () => {
       ) : (
         <>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Memoryquiz</h1>
-          <p className={`text-lg ${animate ? "fade-out" : "fade-in-two"}`}>Hmm, I am thinking about the number in my mind...</p>
+          <p className={`text-lg z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Hmm, I am thinking about the number in my mind...</p>
 
           <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text="Play game"/>
@@ -66,9 +75,9 @@ const MainPage = () => {
       )}
 
 
-      <NumFloat />
-      <NumFloat />
-      <NumFloat />
+      <div className="fade-in">
+        {showNumFloat()}
+      </div>
     </div>
   )
 }
