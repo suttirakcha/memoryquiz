@@ -26,9 +26,9 @@ const ClearGame = ({ score } : ClearGameProps) => {
         <h1 className="text-6xl font-bold">Score: {score}</h1>
       </div>
 
-      <div className={`flex flex-col gap-y-4 w-full ${animate ? "fade-out-number" : ""}`}>
-        <Button className="" onClick={() => handleClickLink("", true)} text="Play again"/>
-        <Button className="" onClick={() => handleClickLink("/")} text="Go back"/>
+      <div className={`flex flex-col gap-y-4 w-full items-center ${animate ? "fade-out-number" : ""}`}>
+        <Button className="max-w-[200px] w-full" onClick={() => handleClickLink("", true)} text="Play again"/>
+        <Button className="max-w-[200px] w-full" onClick={() => handleClickLink("/")} text="Go back"/>
       </div>
     </div>
   )

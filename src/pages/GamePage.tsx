@@ -126,7 +126,7 @@ const GamePage = () => {
                   className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
                   onComplete={() => checkIfGameOver("Time's up")}
                 />
-                <p className={`absolute font-semibold text-2xl -right-12 top-8 ${didntSeeNumber ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer - 3</p>
+                <p className={`absolute font-semibold text-2xl -right-16 top-8 ${didntSeeNumber ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer -3</p>
               </div>
             )}
 
@@ -146,7 +146,7 @@ const GamePage = () => {
                 </div>
               </section>
             ) : (
-              <h1 className={`text-[120px] font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>{num}</h1>
+              <h1 className={`text-[108px] font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>{num}</h1>
             )}
         </>
       )}

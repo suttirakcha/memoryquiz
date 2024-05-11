@@ -17,8 +17,8 @@ const TimerCircle = ({ duration, className, isPlaying, onUpdate, initialRemainin
       <CountdownCircleTimer
         isPlaying={isPlaying}
         duration={duration}
-        colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-        colorsTime={[duration, duration / 2, duration / 4, 0]}
+        colors={['#ec4899', '#db2777', '#be185d', '#9d174d']}
+        colorsTime={[duration, duration / 2, duration / 3, 0]}
         size={100}
         strokeWidth={6}
         onUpdate={onUpdate}

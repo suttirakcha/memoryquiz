@@ -1,5 +1,5 @@
 export interface ButtonProps {
   onClick: () => void
-  text: string
+  text?: string
   className?: string
 }

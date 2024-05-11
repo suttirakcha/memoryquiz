@@ -4,8 +4,8 @@ const NumFloat = () => {
 
   const [num, setNum] = useState(Math.floor(Math.random() * 1000))
   const [position, setPosition] = useState({
-    x: Math.floor(Math.random() * 1000),
-    y: Math.floor(Math.random() * 1000)
+    x: Math.floor(Math.random() * window.innerWidth),
+    y: Math.floor(Math.random() * window.innerHeight)
   })
 
   return (
