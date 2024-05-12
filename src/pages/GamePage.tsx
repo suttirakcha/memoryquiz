@@ -1,6 +1,6 @@
-import { ChangeEvent, KeyboardEvent, useEffect, useState } from "react"
+import { ChangeEvent, KeyboardEvent, ReactNode, useEffect, useState } from "react"
 import TimerCircle from "../components/Timer"
-import ModalText from "../components/ModalText"
+import { MainModalText, ModalText } from "../components/ModalText"
 import ClearGame from "../components/ClearGame"
 import Button from "../components/Button"
 import { WORDS } from "../data/words"
@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom"
 
 interface GameOver {
   open: boolean
-  text: string
+  text: string | ReactNode
 }
 
 const GamePage = () => {
@@ -17,61 +17,73 @@ const GamePage = () => {
 
   const [score, setScore] = useState(0)
 
-  const [numRange, setNumRange] = useState(20)
+  const [numRange, setNumRange] = useState(100)
 
   const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1)
   const [word, setWord] = useState(WORDS[Math.floor(Math.random() * WORDS.length)])
   const [numValue, setNumValue] = useState<number>(0)
+  const [wordValue, setWordValue] = useState<string>("")
   const [enteredValue, setEnteredValue] = useState<number | string>()
-  const [hideNumber, setHideNumber] = useState(false)
+  const [hideAnswer, setHideAnswer] = useState(false)
   const [gameOver, setGameOver] = useState<GameOver>({
     open: false,
     text: ""
   })
   const [showResult, setShowResult] = useState(false)
-  const [didntSeeNumber, setDidntSeeNumber] = useState(false)
+  const [didntSeeAnswer, setDidntSeeAnswer] = useState(false)
   const [timer, setTimer] = useState(10)
+  const [pause, setPause] = useState(false)
 
   const [changingSection, setChangingSection] = useState(false)
 
   const handleSetValue = (e: ChangeEvent<HTMLInputElement>) => {
-    setNumValue(Number(e.target.value))
+    if (mode === "number"){
+      setNumValue(Number(e.target.value))
+    } else {
+      setWordValue(String(e.target.value))
+    }
   }
 
   const startGame = () => {
     setChangingSection(true)
     setTimeout(() => {
       setChangingSection(false)
-      setHideNumber(true)
+      setHideAnswer(true)
     }, 300)
   }
 
-  const nextNumber = () => {
+  const nextNumberOrWord = () => {
     setTimeout(() => {
       setChangingSection(true);
     }, 1000)
     setTimeout(() => {
       setScore(score + 1)
       setTimer(10)
-      setNum(Math.floor(Math.random() * numRange) + 1);
       setChangingSection(false);
-      setHideNumber(false)
-      setNumValue(0)
+      setHideAnswer(false)
       setEnteredValue(undefined)
+
+      if (mode === "number"){
+        setNumValue(0)
+        setNum(Math.floor(Math.random() * numRange) + 1);
+      } else {
+        setWordValue("")
+        setWord(WORDS[Math.floor(Math.random() * WORDS.length)]);
+      }
     }, 1300)
   }
 
   useEffect(() => {
-    score > 5 && setNumRange(100)
-    score > 10 && setNumRange(1000)
-    score > 20 && setNumRange(10000)
-    score > 50 && setNumRange(100000)
-    score > 100 && setNumRange(1000000)
-    score > 150 && setNumRange(10000000)
-    score > 200 && setNumRange(100000000)
+    score >= 5 && setNumRange(1000)
+    score >= 10 && setNumRange(10000)
+    score >= 20 && setNumRange(100000)
+    score >= 50 && setNumRange(1000000)
+    score >= 100 && setNumRange(10000000)
+    score >= 150 && setNumRange(100000000)
+    score >= 200 && setNumRange(1000000000)
   }, [score, enteredValue, setEnteredValue])
 
-  const checkIfGameOver = (text: string) => {
+  const checkIfGameOver = (text: string | ReactNode) => {
     setGameOver({
       open: true,
       text: text
@@ -90,23 +102,36 @@ const GamePage = () => {
   }
 
   const handleEnter = () => {
-    setEnteredValue(numValue)
-    if (numValue == num){
-      nextNumber()
+    mode === "number" ? setEnteredValue(numValue) : setEnteredValue(wordValue)
+    if (numValue == num || wordValue == word){
+      nextNumberOrWord()
     } else {
       setTimeout(() => {
-        checkIfGameOver("Game over!")
+        checkIfGameOver(
+          <>
+            <MainModalText>Game over</MainModalText>
+            <p className="text-2xl text-center">
+              {mode === "number" ? `The number was ${num}` :  `The word was ${word}`}
+            </p>
+          </>
+        )
       }, 500)
     }
   }
 
   const clickDidntSeeNum = () => {
-    setDidntSeeNumber(true)
+    setDidntSeeAnswer(true)
     setTimeout(() => {
-      setDidntSeeNumber(false)
+      setDidntSeeAnswer(false)
     }, 500)
     setTimer(timer - 3)
   }
+
+  const textClassName = 
+    numRange >= 1000000 || word.length >= 7 ? 'text-[90px] md:text-[108px]' 
+    : word.length >= 10 ? 'text-[72px] md:text-[108px]' 
+    : word.length >= 13 ? 'text-[54px] md:text-[108px]'
+    : 'text-[108px]'
 
   return (
     <div className={`p-6 md:p-10 flex flex-col gap-y-8 items-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>
@@ -115,7 +140,7 @@ const GamePage = () => {
       ) : (
         <>
           <h1 className="text-4xl font-bold">Score: {score}</h1>
-            {!hideNumber && (
+            {!hideAnswer && (
               <TimerCircle 
                 isPlaying={true}
                 duration={3} 
@@ -123,7 +148,7 @@ const GamePage = () => {
                 onComplete={startGame}
               />
             )}
-            {hideNumber && (
+            {hideAnswer && (
               <div className="relative flex">
                 <TimerCircle 
                   isPlaying={enteredValue === undefined} 
@@ -131,32 +156,44 @@ const GamePage = () => {
                   className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
                   onComplete={() => checkIfGameOver("Time's up")}
                 />
-                <p className={`absolute font-semibold text-2xl -right-16 top-8 ${didntSeeNumber ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer -3</p>
+                <p className={`absolute font-semibold text-2xl -right-16 top-8 ${didntSeeAnswer ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer -3</p>
               </div>
             )}
 
-            {hideNumber && !didntSeeNumber ? (
+            {hideAnswer && !didntSeeAnswer ? (
               <section className={`flex flex-col gap-y-6 items-center justify-center`}>
-                <h2 className={`text-2xl font-semibold md:text-3xl text-center ${hideNumber ? 'fade-in' : ''}`}>What number did you see?</h2>
+                <h2 className={`text-2xl font-semibold md:text-3xl text-center ${hideAnswer ? 'fade-in' : ''}`}>
+                  {mode === "number" ? "What number did you see?" : "What word did you see?"}
+                </h2>
                 <input 
                   onChange={handleSetValue} 
-                  onKeyDown={(e) => {(e.key === "Enter" && numValue) && handleEnter()}}
-                  value={numValue || ""} 
-                  className={`w-full max-w-lg border outline-none text-black ${hideNumber ? 'fade-in-input opacity-0' : ''} text-center ${enteredValue == num ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 p-3 text-4xl rounded-full`}
+                  onKeyDown={(e) => {(e.key === "Enter" && (numValue || wordValue)) && handleEnter()}}
+                  value={mode === "number" ? numValue || "" : wordValue || ""} 
+                  className={`w-full max-w-lg border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${enteredValue == num || enteredValue == word ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 p-3 text-4xl rounded-full`}
                   disabled={enteredValue !== undefined || gameOver.open}
                 />
-                <div className={`${hideNumber ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4`}>
+                <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4`}>
                   <Button onClick={() => {numValue && handleEnter()}} text="Enter"/>
-                  <button className="text-pink-600" onClick={clickDidntSeeNum}>Didn't see the number?</button>
+                  <button className="text-pink-600 text-xl" onClick={clickDidntSeeNum}>
+                    {mode === "number" ? "Didn't see the number?" : "Didn't see the word?"}
+                  </button>
                 </div>
               </section>
             ) : (
-              <h1 className={`${numRange >= 1000000 ? 'text-[90px] md:text-[108px]' : 'text-[108px]'} font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>{num}</h1>
+              <h1 className={`${textClassName} font-bold text-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>
+                {mode === "number" ? num : word}
+              </h1>
             )}
         </>
       )}
 
       <ModalText text={gameOver.text} isOpen={gameOver.open}/>
+      <ModalText text={
+        <>
+        <MainModalText>The game is paused</MainModalText>
+        <p></p>
+        </>
+      } isOpen={pause}/>
     </div>
   )
 }

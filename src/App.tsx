@@ -8,7 +8,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<MainPage />}/>
-        <Route path="/game" element={<GamePage />}/>
+        <Route path="/game/:mode" element={<GamePage />}/>
       </Routes>
     </BrowserRouter>
   );
