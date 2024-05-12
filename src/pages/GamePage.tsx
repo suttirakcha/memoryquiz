@@ -20,9 +20,15 @@ const GamePage = () => {
   const [score, setScore] = useState(0)
 
   const [numRange, setNumRange] = useState(100)
+  const [wordRange, setWordRange] = useState({
+    min: 0,
+    max: 5
+  })
+
+  const wordList = WORDS.filter(word => word.length <= wordRange.max && word.length >= wordRange.min)
 
   const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1)
-  const [word, setWord] = useState(WORDS[Math.floor(Math.random() * WORDS.length)])
+  const [word, setWord] = useState(wordList[Math.floor(Math.random() * wordList.length)])
   const [numValue, setNumValue] = useState<number>(0)
   const [wordValue, setWordValue] = useState<string>("")
   const [enteredValue, setEnteredValue] = useState<number | string>()
@@ -70,19 +76,28 @@ const GamePage = () => {
         setNum(Math.floor(Math.random() * numRange) + 1);
       } else {
         setWordValue("")
-        setWord(WORDS[Math.floor(Math.random() * WORDS.length)]);
+        setWord(wordList[Math.floor(Math.random() * wordList.length)]);
       }
     }, 1300)
   }
 
   useEffect(() => {
-    score >= 5 && setNumRange(1000)
-    score >= 10 && setNumRange(10000)
-    score >= 20 && setNumRange(100000)
-    score >= 50 && setNumRange(1000000)
-    score >= 100 && setNumRange(10000000)
-    score >= 150 && setNumRange(100000000)
-    score >= 200 && setNumRange(1000000000)
+    if (mode === "number"){
+      score >= 5 && setNumRange(1000)
+      score >= 10 && setNumRange(10000)
+      score >= 20 && setNumRange(100000)
+      score >= 50 && setNumRange(1000000)
+      score >= 100 && setNumRange(10000000)
+      score >= 150 && setNumRange(100000000)
+      score >= 200 && setNumRange(1000000000)
+    } else {
+      score >= 5 && setWordRange({ min:0, max:6 })
+      score >= 10 && setWordRange({ min:5, max:8 })
+      score >= 20 && setWordRange({ min:6, max:10 })
+      score >= 30 && setWordRange({ min:8, max:12 })
+      score >= 40 && setWordRange({ min:10, max:15 })
+      score >= 50 && setWordRange({ min:12, max:30 })
+    }
   }, [score, enteredValue, setEnteredValue])
 
   const checkIfGameOver = (text: string | ReactNode) => {

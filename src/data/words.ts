@@ -328,7 +328,26 @@ export const WORDS: string[] = [
     "mark",
     "landmark",
     "favourite",
-    "rhythm"
+    "rhythm",
+    "exhibition",
+    "nervous",
+    "replacement",
+    "asynchronous",
+    "simultaneous",
+    "chrysanthemum",
+    "spring",
+    "explosion",
+    "oxygen",
+    "nitrogen",
+    "finance",
+    "accounting",
+    "band",
+    "differentiation",
+    "differentiate",
+    "negotiation",
+    "negotiate",
+    "favour",
+    "flood"
 ]
 
 export const THAI_WORDS: string[] = [
