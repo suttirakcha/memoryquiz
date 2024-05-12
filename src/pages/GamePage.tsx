@@ -3,6 +3,8 @@ import TimerCircle from "../components/Timer"
 import ModalText from "../components/ModalText"
 import ClearGame from "../components/ClearGame"
 import Button from "../components/Button"
+import { WORDS } from "../data/words"
+import { useParams } from "react-router-dom"
 
 interface GameOver {
   open: boolean
@@ -11,13 +13,16 @@ interface GameOver {
 
 const GamePage = () => {
 
+  const { mode } = useParams()
+
   const [score, setScore] = useState(0)
 
   const [numRange, setNumRange] = useState(20)
 
   const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1)
+  const [word, setWord] = useState(WORDS[Math.floor(Math.random() * WORDS.length)])
   const [numValue, setNumValue] = useState<number>(0)
-  const [enteredNum, setEnteredNum] = useState<number>()
+  const [enteredValue, setEnteredValue] = useState<number | string>()
   const [hideNumber, setHideNumber] = useState(false)
   const [gameOver, setGameOver] = useState<GameOver>({
     open: false,
@@ -52,7 +57,7 @@ const GamePage = () => {
       setChangingSection(false);
       setHideNumber(false)
       setNumValue(0)
-      setEnteredNum(undefined)
+      setEnteredValue(undefined)
     }, 1300)
   }
 
@@ -64,7 +69,7 @@ const GamePage = () => {
     score > 100 && setNumRange(1000000)
     score > 150 && setNumRange(10000000)
     score > 200 && setNumRange(100000000)
-  }, [score, enteredNum, setEnteredNum])
+  }, [score, enteredValue, setEnteredValue])
 
   const checkIfGameOver = (text: string) => {
     setGameOver({
@@ -85,7 +90,7 @@ const GamePage = () => {
   }
 
   const handleEnter = () => {
-    setEnteredNum(numValue)
+    setEnteredValue(numValue)
     if (numValue == num){
       nextNumber()
     } else {
@@ -121,7 +126,7 @@ const GamePage = () => {
             {hideNumber && (
               <div className="relative flex">
                 <TimerCircle 
-                  isPlaying={enteredNum === undefined} 
+                  isPlaying={enteredValue === undefined} 
                   duration={timer} 
                   className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
                   onComplete={() => checkIfGameOver("Time's up")}
@@ -137,8 +142,8 @@ const GamePage = () => {
                   onChange={handleSetValue} 
                   onKeyDown={(e) => {(e.key === "Enter" && numValue) && handleEnter()}}
                   value={numValue || ""} 
-                  className={`w-full max-w-lg border outline-none text-black ${hideNumber ? 'fade-in-input opacity-0' : ''} text-center ${enteredNum == num ? "bg-green-600 border-green-700 text-white" : enteredNum === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 p-3 text-4xl rounded-full`}
-                  disabled={enteredNum !== undefined || gameOver.open}
+                  className={`w-full max-w-lg border outline-none text-black ${hideNumber ? 'fade-in-input opacity-0' : ''} text-center ${enteredValue == num ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 p-3 text-4xl rounded-full`}
+                  disabled={enteredValue !== undefined || gameOver.open}
                 />
                 <div className={`${hideNumber ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4`}>
                   <Button onClick={() => {numValue && handleEnter()}} text="Enter"/>

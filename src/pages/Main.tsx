@@ -56,7 +56,7 @@ const MainPage = () => {
           <BackButton onClick={() => changeIndex(0)}/>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>How to play</h1>
           <p className={`text-lg ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            You need to memorise the number that I showed for you for just 3 seconds, then you have 10 seconds to answer what number you saw. If you did not see the number, you can click 'Didn't see the number' to show the number again, but you will lose 3 seconds.
+            You need to memorise the number or the word that I showed for you for just 3 seconds, then you have 10 seconds to answer what number or word you saw. If you did not see the number or the word, you can click 'Didn't see the number', (for the word version, 'Didn't see the word') to show the number or the word again, but you will lose 3 seconds.
             If you answer incorrectly or the time is up, the game is over!
 
             <span className="inline-block md:flex items-center gap-x-2 justify-center mt-4">Hope you can enjoy the game (and your memorisation). <Smile /></span>
@@ -65,7 +65,7 @@ const MainPage = () => {
       ) : (
         <>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Memoryquiz</h1>
-          <p className={`text-lg z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Hmm, I am thinking about the number in my mind...</p>
+          <p className={`text-lg z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Hmm, I am thinking about the number or the word in my mind...</p>
 
           <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text="Play game"/>

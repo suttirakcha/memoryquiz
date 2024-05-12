@@ -2,16 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Eclair";
+  src: url("../public/fonts/MN ECLAIR Light.ttf");
+  font-weight: 400
+}
+
+@font-face {
+  font-family: "Eclair";
+  src: url("../public/fonts/MN ECLAIR Bold.ttf");
+  font-weight: 700
+}
+
+@font-face {
+  font-family: "Eclair";
+  src: url("../public/fonts/MN ECLAIR.ttf");
+  font-weight: 600
+}
+
 body {
   margin: 0;
-  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  font-family: 'Eclair', 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }
