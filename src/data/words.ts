@@ -148,6 +148,7 @@ export const WORDS: string[] = [
     "flower",
     "line",
     "online",
+    "offline",
     "club",
     "piano",
     "fantastic",
@@ -510,7 +511,8 @@ export const WORDS: string[] = [
     "evolution",
     "resolution",
     "solution",
-    "service"
+    "service",
+    "group"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -651,5 +653,13 @@ export const THAI_WORDS: string[] = [
     "บริการ",
     "รอบโลก",
     "ส่งออก",
-    "นำเข้า"
+    "นำเข้า",
+    "ออนไลน์",
+    "คลับ",
+    "กลุ่ม",
+    "เปียโน",
+    "คำถาม",
+    "คำตอบ",
+    "ฟัง",
+    "ได้ยิน"
 ]
