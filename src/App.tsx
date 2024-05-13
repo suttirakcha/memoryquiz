@@ -11,6 +11,8 @@ function App() {
         <Route path='*' element={<NotFound />}/>
         <Route path='/' element={<MainPage />}/>
         <Route path="/game/:mode" element={<GamePage />}/>
+        <Route path='/:lang' element={<MainPage />}/>
+        <Route path="/:lang/game/:mode" element={<GamePage />}/>
       </Routes>
     </BrowserRouter>
   );

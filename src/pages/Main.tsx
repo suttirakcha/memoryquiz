@@ -1,13 +1,15 @@
 import { useState } from "react"
 import Button from "../components/Button"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import NumFloat from "../components/NumFloat"
-import { Smile } from "lucide-react"
 import BackButton from "../components/BackButton"
+import useLanguage from "../hooks/useLanguage"
 
 const MainPage = () => {
 
+  const { lang } = useParams()
+  const { mainLang } = useLanguage(lang)
   const navigate = useNavigate()
 
   const [currentIndex, setCurrentIndex] = useState(0)
@@ -15,13 +17,7 @@ const MainPage = () => {
   const [numFloat, setNumFloat] = useState((Math.floor(Math.random() * 20) + 1))
   const [selectedMode, setSelectedMode] = useState("")
 
-  const mainText = [
-    "Hmm, I'm thinking about the number or the word in my mind...",
-    "Wanna memorise the word, the number, or me? :)",
-    "Be happy and enjoy playing my game",
-    "Are you serious about anything? Playing my game can help you relax.",
-    "You know what, I'm thinking of you when you are playing my game.",
-  ]
+  const mainText = mainLang.quote
   const [randomMainText, setRandomMainText] = useState(mainText[Math.floor(Math.random() * mainText.length)])
 
   const showNumFloat = () => {
@@ -45,13 +41,20 @@ const MainPage = () => {
   const changeLink = (mode: string) => {
     setAnimate(true)
     setTimeout(() => {
-      navigate(`/game/${mode}`)
+      lang === "th" ? navigate(`/th/game/${mode}`) : navigate(`/game/${mode}`)
     }, 500)
   }
 
   const selectMode = (mode: string) => {
     changeIndex(3)
     setSelectedMode(mode)
+  }
+
+  const changeLang = (link: string) => {
+    setAnimate(true)
+    setTimeout(() => {
+      window.location.replace(link)
+    }, 500)
   }
 
   return (
@@ -65,28 +68,25 @@ const MainPage = () => {
             colors="#db2777"
             size={240}
           >
-            {() => <h2 className="w-[140px] text-2xl font-semibold text-center">Preparing the {selectedMode} for you...</h2>}
+            {() => <h2 className="w-[140px] text-2xl font-semibold text-center">{selectedMode === "number" ? mainLang.preparing_numbers_for_you : mainLang.preparing_words_for_you}</h2>}
           </CountdownCircleTimer>
         </div>
       ) : currentIndex === 2 ? (
         <>
-          <BackButton onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
-          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Select mode</h1>
+          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
+          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.select_mode}</h1>
 
           <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("number")}} text="Number"/>
-            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("word")}} text="Word"/>
+            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("number")}} text={mainLang.number}/>
+            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("word")}} text={mainLang.word}/>
           </div>
         </>
       ) : currentIndex === 1 ? (
         <div className="flex flex-col gap-y-10 max-w-2xl items-center">
-          <BackButton onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
-          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>How to play</h1>
+          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
+          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.how_to_play}</h1>
           <p className={`text-xl md:text-2xl ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            You need to memorise the number or the word that I showed for you for just 3 seconds, then you have 10 seconds to answer what number or word you saw. If you did not see the number or the word, you can click 'Didn't see the number', (for the word version, 'Didn't see the word') to show the number or the word again, but you will lose 3 seconds.
-            If you answer incorrectly or the time is up, the game is over!
-
-            <span className="flex items-center gap-x-2 justify-center mt-4">Hope you can enjoy the game (and your memorisation). <Smile className="inline"/></span>
+            {mainLang.how_to_play_desc}
           </p>
         </div>
       ) : (
@@ -95,8 +95,17 @@ const MainPage = () => {
           <p className={`text-xl md:text-2xl z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{randomMainText}</p>
 
           <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text="Let's play"/>
-            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(1)}} text="How to play"/>
+            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text={mainLang.play_game}/>
+            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(1)}} text={mainLang.how_to_play}/>
+          </div>
+
+          <div className={`text-2xl flex flex-col items-center gap-y-4 ${animate ? "fade-out-number" : "fade-in-number"}`}>
+            <h1 className="font-bold text-3xl">{mainLang.switch_language}</h1>
+
+            <div className="flex items-center gap-x-8">
+              <button onClick={() => changeLang("/")}>English</button>
+              <button onClick={() => changeLang("/th")}>ไทย</button>
+            </div>
           </div>
         </>
       )}

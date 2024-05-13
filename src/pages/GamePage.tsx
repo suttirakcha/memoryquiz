@@ -3,9 +3,10 @@ import TimerCircle from "../components/Timer"
 import { MainModalText, ModalText } from "../components/ModalText"
 import ClearGame from "../components/ClearGame"
 import Button from "../components/Button"
-import { WORDS } from "../data/words"
+import { THAI_WORDS, WORDS } from "../data/words"
 import { useNavigate, useParams } from "react-router-dom"
 import BackButton from "../components/BackButton"
+import useLanguage from "../hooks/useLanguage"
 
 interface GameOver {
   open: boolean
@@ -14,7 +15,8 @@ interface GameOver {
 
 const GamePage = () => {
 
-  const { mode } = useParams()
+  const { lang, mode } = useParams()
+  const { mainLang } = useLanguage(lang)
   const navigate = useNavigate()
 
   const [score, setScore] = useState(0)
@@ -25,7 +27,7 @@ const GamePage = () => {
     max: 5
   })
 
-  const wordList = WORDS.filter(word => word.length <= wordRange.max && word.length >= wordRange.min)
+  const wordList = (lang === "th" ? THAI_WORDS : WORDS).filter(word => word.length <= wordRange.max && word.length >= wordRange.min)
 
   const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1)
   const [word, setWord] = useState(wordList[Math.floor(Math.random() * wordList.length)])
@@ -126,9 +128,9 @@ const GamePage = () => {
       setTimeout(() => {
         checkIfGameOver(
           <>
-            <MainModalText>Game over</MainModalText>
+            <MainModalText>{mainLang.game_over}</MainModalText>
             <p className="text-2xl text-center">
-              {mode === "number" ? `The number was ${num}` :  `The word was ${word}`}
+              {mode === "number" ? `${mainLang.the_number_was} ${num}` :  `${mainLang.the_word_was} ${word}`}
             </p>
           </>
         )
@@ -145,32 +147,33 @@ const GamePage = () => {
   }
 
   const textClassName = 
-    numRange >= 1000000 || word.length >= 7 ? 'text-[90px] md:text-[108px]' 
-    : word.length >= 10 ? 'text-[72px] md:text-[108px]' 
-    : word.length >= 13 ? 'text-[54px] md:text-[108px]'
+    numRange >= 1000000 || word.length >= 6 ? 'text-[90px] md:text-[108px]' 
+    : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
+    : word.length >= 10 ? 'text-[60px] md:text-[108px]'
+    : word.length >= 12 ? 'text-[48px] md:text-[108px]'
     : 'text-[108px]'
 
   const clickToHomePage = () => {
     setQuit(false)
     setChangingSection(true)
     setTimeout(() => {
-      navigate("/")
+      lang === "th" ? navigate("/th") : navigate("/")
     }, 800)
   }
 
   return (
     <div className={`p-6 md:p-10 flex flex-col gap-y-8 items-center ${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>
       {showResult ? (
-        <ClearGame score={score}/>
+        <ClearGame score={score} lang={lang}/>
       ) : (
         <>
           {hideAnswer && (
             <div className={`${changingSection ? 'fade-out-number' : 'fade-in-number'}`}>
-              <BackButton text="Quit" onClick={() => setQuit(true)}/>
+              <BackButton text={mainLang.quit} onClick={() => setQuit(true)}/>
             </div>
           )}
 
-          <h1 className="text-4xl font-bold">Score: {score}</h1>
+          <h1 className="text-4xl font-bold">{mainLang.score}: {score}</h1>
             {!hideAnswer && (
               <TimerCircle 
                 isPlaying={true}
@@ -185,16 +188,16 @@ const GamePage = () => {
                   isPlaying={enteredValue === undefined} 
                   duration={timer} 
                   className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
-                  onComplete={() => checkIfGameOver("Time's up")}
+                  onComplete={() => checkIfGameOver(mainLang.times_up)}
                 />
-                <p className={`absolute font-semibold text-2xl -right-16 top-8 ${didntSeeAnswer ? 'timer-anim' : 'opacity-0 invisible'}`}>Timer -3</p>
+                <p className={`absolute font-semibold text-2xl -right-16 top-8 ${didntSeeAnswer ? 'timer-anim' : 'opacity-0 invisible'}`}>{mainLang.timer} -3</p>
               </div>
             )}
 
             {hideAnswer && !didntSeeAnswer ? (
               <section className={`flex flex-col gap-y-6 items-center justify-center`}>
                 <h2 className={`text-2xl font-semibold md:text-3xl text-center ${hideAnswer ? 'fade-in' : ''}`}>
-                  {mode === "number" ? "What number did you see?" : "What word did you see?"}
+                  {mode === "number" ? mainLang.what_number_did_you_see : mainLang.what_word_did_you_see}
                 </h2>
                 <input 
                   onChange={handleSetValue} 
@@ -203,10 +206,10 @@ const GamePage = () => {
                   className={`w-full max-w-lg h-[60px] border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${enteredValue == num || enteredValue == word ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 px-3 text-4xl rounded-full`}
                   disabled={enteredValue !== undefined || gameOver.open}
                 />
-                <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4`}>
-                  <Button onClick={() => {(numValue || wordValue) && handleEnter()}} text="Enter"/>
+                <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4 items-center`}>
+                  <Button className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
                   <button className="text-pink-600 text-xl" onClick={clickDidntSeeNum}>
-                    {mode === "number" ? "Didn't see the number?" : "Didn't see the word?"}
+                    {mode === "number" ? mainLang.didnt_see_num : mainLang.didnt_see_word}
                   </button>
                 </div>
               </section>
@@ -221,14 +224,14 @@ const GamePage = () => {
       <ModalText text={gameOver.text} isOpen={gameOver.open}/>
       <ModalText text={
         <div className="flex flex-col gap-y-6">
-          <MainModalText>Quitting game in...</MainModalText>
+          <MainModalText>{mainLang.quitting_game}</MainModalText>
           <TimerCircle 
             isPlaying={quit}
             duration={3} 
             className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
             onComplete={clickToHomePage}
           />
-          <p className="cursor-pointer text-2xl text-center" onClick={() => setQuit(false)}>Click me to cancel</p>
+          <p className="cursor-pointer text-2xl text-center" onClick={() => setQuit(false)}>{mainLang.click_to_cancel}</p>
         </div>
       } isOpen={quit}/>
     </div>
