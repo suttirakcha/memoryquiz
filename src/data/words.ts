@@ -488,7 +488,17 @@ export const WORDS: string[] = [
     "execution",
     "execute",
     "aubergine",
-    "microphone"
+    "microphone",
+    "maintenance",
+    "maintain",
+    "localisation",
+    "local",
+    "licence",
+    "driving licence",
+    "pavement",
+    "zebra crossing",
+    "motorway",
+    "commercial"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -608,5 +618,14 @@ export const THAI_WORDS: string[] = [
     "หนาว",
     "เย็น",
     "การนำเสนอ",
-    "เสนอ"
+    "เสนอ",
+    "การจัดการ",
+    "การตลาด",
+    "การบัญชี",
+    "ระฆัง",
+    "ชอบ",
+    "โปรดปราน",
+    "ช่อง",
+    "ถนน",
+    "ลูกศร"
 ]
