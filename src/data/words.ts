@@ -498,7 +498,19 @@ export const WORDS: string[] = [
     "pavement",
     "zebra crossing",
     "motorway",
-    "commercial"
+    "commercial",
+    "qualification",
+    "circumstance",
+    "situation",
+    "experience",
+    "law",
+    "behaviour",
+    "permission",
+    "permit",
+    "evolution",
+    "resolution",
+    "solution",
+    "service"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -627,5 +639,17 @@ export const THAI_WORDS: string[] = [
     "โปรดปราน",
     "ช่อง",
     "ถนน",
-    "ลูกศร"
+    "ลูกศร",
+    "สถานการณ์",
+    "ประสบการณ์",
+    "ปรากฏการณ์",
+    "กฎหมาย",
+    "พฤติกรรม",
+    "อนุญาต",
+    "วิวัฒนาการ",
+    "บริษัท",
+    "บริการ",
+    "รอบโลก",
+    "ส่งออก",
+    "นำเข้า"
 ]
