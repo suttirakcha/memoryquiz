@@ -147,10 +147,10 @@ const GamePage = () => {
   }
 
   const textClassName = 
-    (numRange >= 1000000 || word.length >= 6) ? 'text-[90px] md:text-[108px]' 
-    : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
+    word.length >= 12 ? 'text-[48px] md:text-[108px]'
     : word.length >= 10 ? 'text-[60px] md:text-[108px]'
-    : word.length >= 12 ? 'text-[48px] md:text-[108px]'
+    : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
+    : (numRange >= 1000000 || word.length >= 6) ? 'text-[90px] md:text-[108px]'
     : 'text-[108px]'
 
   const clickToHomePage = () => {

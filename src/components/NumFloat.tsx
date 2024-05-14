@@ -5,8 +5,8 @@ const NumFloat = () => {
 
   const [num, setNum] = useState<number | ReactNode>(Math.floor(Math.random() * 1000))
   const [position, setPosition] = useState({
-    x: Math.floor(Math.random() * window.innerWidth),
-    y: Math.floor(Math.random() * window.innerHeight)
+    x: Math.floor(Math.random() * (window.innerWidth - 100)),
+    y: Math.floor(Math.random() * (window.innerHeight - 100))
   })
 
   const [animate, setAnimate] = useState(false)

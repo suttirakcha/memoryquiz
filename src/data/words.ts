@@ -514,7 +514,15 @@ export const WORDS: string[] = [
     "service",
     "group",
     "vacuum",
-    "district"
+    "district",
+    "key",
+    "institute",
+    "institution",
+    "banknote",
+    "promise",
+    "compromise",
+    "integrate",
+    "integration"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -697,5 +705,19 @@ export const THAI_WORDS: string[] = [
     "ดินสอ",
     "ปากกา",
     "เครื่องมือ",
-    "เครื่องดูดฝุ่น"
+    "เครื่องดูดฝุ่น",
+    "แลนด์มาร์ค",
+    "ประกาศนียบัตร",
+    "บัตร",
+    "กุญแจ",
+    "ธนบัตร",
+    "นวัตกรรม",
+    "สถาบัน",
+    "สะกด",
+    "ตกใจ",
+    "ดีใจ",
+    "สะดุ้ง",
+    "มิ้นท์",
+    "เครื่องหมาย",
+    "กุยช่าย"
 ]
