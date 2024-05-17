@@ -14,7 +14,7 @@ const MainPage = () => {
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [animate, setAnimate] = useState(false)
-  const [numFloat, setNumFloat] = useState((Math.floor(Math.random() * 20) + 1))
+  const [numFloat, setNumFloat] = useState((Math.floor(Math.random() * 5) + 1))
   const [selectedMode, setSelectedMode] = useState("")
 
   const mainText = mainLang.quote
@@ -111,9 +111,7 @@ const MainPage = () => {
       )}
 
 
-      <div className="fade-in">
-        {showNumFloat()}
-      </div>
+      {showNumFloat()}
     </div>
   )
 }
