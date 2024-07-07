@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='*' element={<NotFound />}/>
+        <Route path='/404' element={<NotFound />}/>
         <Route path='/' element={<MainPage />}/>
         <Route path="/game/:mode" element={<GamePage />}/>
         <Route path='/:lang' element={<MainPage />}/>

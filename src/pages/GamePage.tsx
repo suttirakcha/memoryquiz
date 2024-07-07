@@ -221,7 +221,7 @@ const GamePage = () => {
         </>
       )}
 
-      <ModalText text={gameOver.text} isOpen={gameOver.open}/>
+      <ModalText text={gameOver.text} isOpen={gameOver.open} isRounded={true}/>
       <ModalText text={
         <div className="flex flex-col gap-y-6">
           <MainModalText>{mainLang.quitting_game}</MainModalText>

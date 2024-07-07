@@ -76,7 +76,7 @@ const MainPage = () => {
           <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.select_mode}</h1>
 
-          <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
+          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {selectMode("number")}} text={mainLang.number}/>
             <Button className="max-w-[300px] w-full" onClick={() => {selectMode("word")}} text={mainLang.word}/>
           </div>
@@ -94,7 +94,7 @@ const MainPage = () => {
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Memoryquiz</h1>
           <p className={`text-xl md:text-2xl z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{randomMainText}</p>
 
-          <div className={`flex flex-col gap-y-4 items-center w-full z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
+          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text={mainLang.play_game}/>
             <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(1)}} text={mainLang.how_to_play}/>
           </div>

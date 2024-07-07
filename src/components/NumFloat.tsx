@@ -1,4 +1,4 @@
-import { Heart, Smile, Star, Sticker } from "lucide-react"
+import { Heart, Laugh, MessageCircleHeart, Smile, Star, Sticker } from "lucide-react"
 import { ReactNode, useState } from "react"
 
 const NumFloat = () => {
@@ -16,7 +16,9 @@ const NumFloat = () => {
     <Heart className={iconClassName}/>, 
     <Star className={iconClassName}/>,
     <Smile className={iconClassName}/>,
-    <Sticker className={iconClassName}/>
+    <Sticker className={iconClassName}/>,
+    <Laugh className={iconClassName}/>,
+    <MessageCircleHeart className={iconClassName}/>
   ]
 
   const clickToSeeSurprise = () => {
@@ -36,7 +38,7 @@ const NumFloat = () => {
 
   return (
     <h1 
-      className={`absolute text-pink-500/20 text-5xl font-bold num-float z-1 cursor-pointer text-center ${animate ? "opacity-0" : "opacity-1"} transition-opacity duration-300`}
+      className={`absolute text-pink-500/10 text-5xl font-bold num-float z-1 cursor-pointer text-center ${animate ? "opacity-0" : "opacity-1"} transition-opacity duration-300`}
       style={{
         top:position.y, 
         left:position.x

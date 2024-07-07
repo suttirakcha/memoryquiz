@@ -16,7 +16,7 @@ export const ENGLISH_TEXT = {
       You need to memorise the number or the word that I showed for you for just 3 seconds, then you have 10 seconds to answer what number or word you saw. If you did not see the number or the word, you can click 'Didn't see the number', (for the word version, 'Didn't see the word') to show the number or the word again, but you will lose 3 seconds.
       If you answer incorrectly or the time is up, the game is over!
 
-      <span className="flex items-center gap-x-2 justify-center mt-4">Hope you can enjoy the game (and your memorisation). <Smile className="inline"/></span>
+      <span className="flex items-center gap-3 justify-center mt-4 flex-col">Hope you enjoy the game (and your memorisation). <Smile className="inline-block w-8 h-8"/></span>
     </>
   ),
   number: "Number",
@@ -60,7 +60,7 @@ export const THAI_TEXT = {
       คุณจะต้องจำตัวเลขหรือคำศัพท์ภายใน 3 วินาที หลังจากนั้นคุณจะมีเวลา 10 วินาทีในการตอบว่าคุณเห็นคำศัพท์หรือตัวเลขอะไร ถ้าคุณไม่ได้ดูคำศัพท์หรือตัวเลข สามารถกดปุ่ม 'ไม่เห็นตัวเลข?' (สำหรับเวอร์ชั่นคำศัพท์, 'ไม่เห็นคำศัพท์?') เพื่อแสดงอีกรอบ แต่คุณจะเสียเวลาไป 3 วินาทีนะ
       ถ้าคุณตอบไม่ถูกหรือหมดเวลา เกมจะจบทันที
 
-      <span className="flex items-center gap-x-2 justify-center mt-4">หวังว่าคุณจะสนุกไปกับเกม(และการจำ)นะ <Smile className="inline"/></span>
+      <span className="flex items-center gap-3 justify-center mt-4 flex-col">หวังว่าคุณจะสนุกไปกับเกม(และการจำ)นะ <Smile className="inline-block w-8 h-8"/></span>
     </>
   ),
   number: "ตัวเลข",

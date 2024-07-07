@@ -9,4 +9,5 @@ export interface ButtonProps {
 export interface ModalTextProps {
   text: string | ReactNode
   isOpen: boolean
+  isRounded?: boolean
 }
