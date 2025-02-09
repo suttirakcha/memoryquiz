@@ -98,7 +98,7 @@ const GamePage = () => {
       score >= 20 && setWordRange({ min:6, max:10 })
       score >= 30 && setWordRange({ min:8, max:12 })
       score >= 40 && setWordRange({ min:10, max:15 })
-      score >= 50 && setWordRange({ min:12, max:30 })
+      score >= 50 && setWordRange({ min:12, max:60 })
     }
   }, [score, enteredValue, setEnteredValue])
 
@@ -146,12 +146,12 @@ const GamePage = () => {
     setTimer(timer - 3)
   }
 
-  const textClassName = 
-    word.length >= 12 ? 'text-[48px] md:text-[108px]'
-    : word.length >= 10 ? 'text-[60px] md:text-[108px]'
-    : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
-    : (numRange >= 1000000 || word.length >= 6) ? 'text-[90px] md:text-[108px]'
-    : 'text-[108px]'
+  const textClassName = 'text-[calc(50px_+_5vw)] md:text-[108px] leading-[20vw]'
+    // word.length >= 12 ? 'text-[48px] md:text-[108px]'
+    // : word.length >= 10 ? 'text-[60px] md:text-[108px]'
+    // : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
+    // : (numRange >= 1000000 || word.length >= 6) ? 'text-[90px] md:text-[108px]'
+    // : 'text-[108px]'
 
   const clickToHomePage = () => {
     setQuit(false)
@@ -207,7 +207,7 @@ const GamePage = () => {
                   disabled={enteredValue !== undefined || gameOver.open}
                 />
                 <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4 items-center`}>
-                  <Button className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
+                  <Button disabled={numValue == num || wordValue == word} className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
                   <button className="text-pink-600 text-xl" onClick={clickDidntSeeNum}>
                     {mode === "number" ? mainLang.didnt_see_num : mainLang.didnt_see_word}
                   </button>

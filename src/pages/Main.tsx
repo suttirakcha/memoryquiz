@@ -7,14 +7,13 @@ import BackButton from "../components/BackButton"
 import useLanguage from "../hooks/useLanguage"
 
 const MainPage = () => {
-
   const { lang } = useParams()
   const { mainLang } = useLanguage(lang)
   const navigate = useNavigate()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const [animate, setAnimate] = useState(false)
-  const [numFloat, setNumFloat] = useState((Math.floor(Math.random() * 5) + 1))
+  const [numFloat] = useState((Math.floor(Math.random() * 5) + 1))
   const [selectedMode, setSelectedMode] = useState("")
 
   const mainText = mainLang.quote
@@ -92,7 +91,7 @@ const MainPage = () => {
       ) : (
         <>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Memoryquiz</h1>
-          <p className={`text-xl md:text-2xl z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{randomMainText}</p>
+          <p className={`text-xl md:text-2xl z-50 text-center ${animate ? "fade-out" : "fade-in-two"}`}>{randomMainText}</p>
 
           <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text={mainLang.play_game}/>
@@ -109,8 +108,6 @@ const MainPage = () => {
           </div>
         </>
       )}
-
-
       {showNumFloat()}
     </div>
   )

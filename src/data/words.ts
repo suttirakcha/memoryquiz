@@ -522,7 +522,20 @@ export const WORDS: string[] = [
     "promise",
     "compromise",
     "integrate",
-    "integration"
+    "integration",
+    "psychology",
+    "transition",
+    "workspace",
+    "competition",
+    "playlist",
+    "homework",
+    "unit",
+    "centimetre",
+    "kilogram",
+    "another",
+    "hippopotamus",
+    "water heater",
+    "heater"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -722,5 +735,23 @@ export const THAI_WORDS: string[] = [
     "กุยช่าย",
     "สับสน",
     "โวหาร",
-    "ประกัน"
+    "ประกัน",
+    "อาชีพ",
+    "เครื่องซักผ้า",
+    "น้ำยาล้างจาน",
+    "ผงซักฟอก",
+    "แปรงสีฟัน",
+    "ยาสีฟัน",
+    "อุปกรณ์",
+    "อัศวิน",
+    "อาหาร",
+    "เครื่องปรุง",
+    "รถเมล์",
+    "อาณาจักร",
+    "ธรรมชาติ",
+    "น้ำหนัก",
+    "กิโลกรัม",
+    "หน่วย",
+    "เซนติเมตร",
+    "เครื่องทำน้ำอุ่น"
 ]
