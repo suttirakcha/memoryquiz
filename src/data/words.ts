@@ -535,7 +535,22 @@ export const WORDS: string[] = [
     "another",
     "hippopotamus",
     "water heater",
-    "heater"
+    "heater",
+    "foreigner",
+    "person",
+    "people",
+    "cancel",
+    "college",
+    "teacher",
+    "foundation",
+    "establish",
+    "mobile phone",
+    "adventure",
+    "earphone",
+    "headset",
+    "episode",
+    "space",
+    "air"
 ]
 
 export const THAI_WORDS: string[] = [
@@ -753,5 +768,21 @@ export const THAI_WORDS: string[] = [
     "กิโลกรัม",
     "หน่วย",
     "เซนติเมตร",
-    "เครื่องทำน้ำอุ่น"
+    "เครื่องทำน้ำอุ่น",
+    "ประเทศ",
+    "ต่างประเทศ",
+    "อาจารย์",
+    "นักเรียน",
+    "นักศึกษา",
+    "มูลนิธิ",
+    "ก่อสร้าง",
+    "ครู",
+    "มือถือ",
+    "ผจญภัย",
+    "หูฟัง",
+    "โกลาหล",
+    "กำแพง",
+    "อากาศ",
+    "อวกาศ",
+    "อวสาน",
 ]

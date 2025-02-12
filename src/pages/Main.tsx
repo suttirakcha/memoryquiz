@@ -7,24 +7,21 @@ import BackButton from "../components/BackButton"
 import useLanguage from "../hooks/useLanguage"
 
 const MainPage = () => {
-  const { lang } = useParams()
-  const { mainLang } = useLanguage(lang)
-  const navigate = useNavigate()
-
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [animate, setAnimate] = useState(false)
-  const [numFloat] = useState((Math.floor(Math.random() * 5) + 1))
-  const [selectedMode, setSelectedMode] = useState("")
-
-  const mainText = mainLang.quote
-  const [randomMainText, setRandomMainText] = useState(mainText[Math.floor(Math.random() * mainText.length)])
+  const navigate = useNavigate();
+  const { lang } = useParams();
+  const { mainLang } = useLanguage(lang);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [animate, setAnimate] = useState(false);
+  const [numFloat] = useState((Math.floor(Math.random() * 5) + 1));
+  const [selectedMode, setSelectedMode] = useState("");
+  const mainText = mainLang.quote;
+  const [randomMainText, setRandomMainText] = useState(mainText[Math.floor(Math.random() * mainText.length)]);
 
   const showNumFloat = () => {
     const comp = []
     for (let i = 0; i < numFloat; i++){
       comp.push(<NumFloat />)
     }
-
     return comp
   }
 
@@ -74,7 +71,6 @@ const MainPage = () => {
         <>
           <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.select_mode}</h1>
-
           <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
             <Button className="max-w-[300px] w-full" onClick={() => {selectMode("number")}} text={mainLang.number}/>
             <Button className="max-w-[300px] w-full" onClick={() => {selectMode("word")}} text={mainLang.word}/>

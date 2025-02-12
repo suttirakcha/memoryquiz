@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, ReactNode, useEffect, useState } from "react"
+import { ChangeEvent, ReactNode, useEffect, useState } from "react"
 import TimerCircle from "../components/Timer"
 import { MainModalText, ModalText } from "../components/ModalText"
 import ClearGame from "../components/ClearGame"
@@ -14,37 +14,34 @@ interface GameOver {
 }
 
 const GamePage = () => {
+  const navigate = useNavigate();
+  const { lang, mode } = useParams();
+  const { mainLang } = useLanguage(lang);
 
-  const { lang, mode } = useParams()
-  const { mainLang } = useLanguage(lang)
-  const navigate = useNavigate()
-
-  const [score, setScore] = useState(0)
-
-  const [numRange, setNumRange] = useState(100)
+  const [score, setScore] = useState(0);
+  const [numRange, setNumRange] = useState(100);
   const [wordRange, setWordRange] = useState({
     min: 0,
     max: 5
-  })
+  });
 
-  const wordList = (lang === "th" ? THAI_WORDS : WORDS).filter(word => word.length <= wordRange.max && word.length >= wordRange.min)
+  const wordList = (lang === "th" ? THAI_WORDS : WORDS).filter(word => word.length <= wordRange.max && word.length >= wordRange.min);
 
-  const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1)
-  const [word, setWord] = useState(wordList[Math.floor(Math.random() * wordList.length)])
-  const [numValue, setNumValue] = useState<number>(0)
-  const [wordValue, setWordValue] = useState<string>("")
-  const [enteredValue, setEnteredValue] = useState<number | string>()
-  const [hideAnswer, setHideAnswer] = useState(false)
+  const [num, setNum] = useState(Math.floor(Math.random() * numRange) + 1);
+  const [word, setWord] = useState(wordList[Math.floor(Math.random() * wordList.length)]);
+  const [numValue, setNumValue] = useState<number>(0);
+  const [wordValue, setWordValue] = useState<string>("");
+  const [enteredValue, setEnteredValue] = useState<number | string>();
+  const [hideAnswer, setHideAnswer] = useState(false);
   const [gameOver, setGameOver] = useState<GameOver>({
     open: false,
     text: ""
-  })
-  const [showResult, setShowResult] = useState(false)
-  const [didntSeeAnswer, setDidntSeeAnswer] = useState(false)
-  const [timer, setTimer] = useState(10)
-  const [quit, setQuit] = useState(false)
-
-  const [changingSection, setChangingSection] = useState(false)
+  });
+  const [showResult, setShowResult] = useState(false);
+  const [didntSeeAnswer, setDidntSeeAnswer] = useState(false);
+  const [timer, setTimer] = useState(10);
+  const [quit, setQuit] = useState(false);
+  const [changingSection, setChangingSection] = useState(false);
 
   const handleSetValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (mode === "number"){
@@ -146,12 +143,8 @@ const GamePage = () => {
     setTimer(timer - 3)
   }
 
-  const textClassName = 'text-[calc(50px_+_5vw)] md:text-[108px] leading-[20vw]'
-    // word.length >= 12 ? 'text-[48px] md:text-[108px]'
-    // : word.length >= 10 ? 'text-[60px] md:text-[108px]'
-    // : word.length >= 8 ? 'text-[72px] md:text-[108px]' 
-    // : (numRange >= 1000000 || word.length >= 6) ? 'text-[90px] md:text-[108px]'
-    // : 'text-[108px]'
+  const textClassName = 'text-[calc(50px_+_5vw)] md:text-[108px] leading-[20vw]';
+  const checkIfCorrect = enteredValue == num || enteredValue == word;
 
   const clickToHomePage = () => {
     setQuit(false)
@@ -203,11 +196,11 @@ const GamePage = () => {
                   onChange={handleSetValue} 
                   onKeyDown={(e) => {(e.key === "Enter" && (numValue || wordValue)) && handleEnter()}}
                   value={mode === "number" ? numValue || "" : wordValue || ""} 
-                  className={`w-full max-w-lg h-[60px] border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${enteredValue == num || enteredValue == word ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 px-3 text-4xl rounded-full`}
+                  className={`w-full max-w-lg h-[60px] border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${checkIfCorrect ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 px-3 text-4xl rounded-full`}
                   disabled={enteredValue !== undefined || gameOver.open}
                 />
                 <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4 items-center`}>
-                  <Button disabled={numValue == num || wordValue == word} className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
+                  <Button disabled={checkIfCorrect} className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
                   <button className="text-pink-600 text-xl" onClick={clickDidntSeeNum}>
                     {mode === "number" ? mainLang.didnt_see_num : mainLang.didnt_see_word}
                   </button>
