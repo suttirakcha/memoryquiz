@@ -80,7 +80,7 @@ const MainPage = () => {
         <div className="flex flex-col gap-y-10 max-w-2xl items-center">
           <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
           <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.how_to_play}</h1>
-          <p className={`text-xl md:text-2xl ${animate ? "fade-out-number" : "fade-in-number"}`}>
+          <p className={`text-center md:text-left text-xl md:text-2xl ${animate ? "fade-out-number" : "fade-in-number"}`}>
             {mainLang.how_to_play_desc}
           </p>
         </div>
