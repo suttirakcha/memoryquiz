@@ -44,11 +44,9 @@ const GamePage = () => {
   const [changingSection, setChangingSection] = useState(false);
 
   const handleSetValue = (e: ChangeEvent<HTMLInputElement>) => {
-    if (mode === "number"){
-      setNumValue(Number(e.target.value))
-    } else {
+    mode === "number" ?
+      setNumValue(Number(e.target.value)) :
       setWordValue(String(e.target.value))
-    }
   }
 
   const startGame = () => {

@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import GamePage from './pages/GamePage';
 import MainPage from './pages/Main';
 import NotFound from './pages/NotFound';
+import './App.css';
 
 function App() {
   return (

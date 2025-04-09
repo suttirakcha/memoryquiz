@@ -2,16 +2,14 @@ import { Heart, Laugh, MessageCircleHeart, Smile, Star, Sticker } from "lucide-r
 import { ReactNode, useState } from "react"
 
 const NumFloat = () => {
-
+  const [animate, setAnimate] = useState(false);
   const [num, setNum] = useState<number | ReactNode>(Math.floor(Math.random() * 1000))
-  const [position, setPosition] = useState({
+  const [position] = useState({
     x: Math.floor(Math.random() * (window.innerWidth - 100)),
     y: Math.floor(Math.random() * (window.innerHeight - 100))
   })
 
-  const [animate, setAnimate] = useState(false)
-
-  const iconClassName = "h-10 w-10"
+  const iconClassName = "h-10 w-10";
   const icons = [
     <Heart className={iconClassName}/>, 
     <Star className={iconClassName}/>,
@@ -38,7 +36,7 @@ const NumFloat = () => {
 
   return (
     <h1 
-      className={`absolute text-pink-500/10 text-5xl font-bold num-float z-1 cursor-pointer text-center ${animate ? "opacity-0" : "opacity-1"} transition-opacity duration-300`}
+      className={`${animate ? "opacity-0" : "opacity-1"} num-float-anim num-float-text`}
       style={{
         top:position.y, 
         left:position.x

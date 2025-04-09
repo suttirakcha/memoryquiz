@@ -12,3 +12,8 @@ export interface ModalTextProps {
   isOpen: boolean;
   isRounded?: boolean;
 }
+
+export interface ClearGameProps {
+  score: number
+  lang: string | undefined
+}
