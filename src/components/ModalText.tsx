@@ -1,8 +1,8 @@
-import { ReactNode } from "react"
+import { PropsWithChildren } from "react"
 import { ModalTextProps } from "../types"
 
-export const MainModalText = ({ children } : { children: ReactNode }) => {
-  return (<h1 className="text-5xl md:text-6xl font-bold">{children}</h1>)
+export const MainModalText = ({ children } : PropsWithChildren) => {
+  return (<h1 className="heading">{children}</h1>)
 }
 
 export const ModalText = ({ text, isOpen, isRounded } : ModalTextProps) => {

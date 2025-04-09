@@ -35,7 +35,7 @@ body {
   animation:timerText 500ms forwards;
 }
 
-.num-float {
+.num-float-anim {
   animation:numFloat 3s linear infinite;
 }
 
