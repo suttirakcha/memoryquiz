@@ -14,6 +14,7 @@ const MainPage = () => {
   const [animate, setAnimate] = useState(false);
   const [numFloat] = useState((Math.floor(Math.random() * 5) + 1));
   const [selectedMode, setSelectedMode] = useState("");
+
   const mainText = mainLang.quote;
   const [randomMainText, setRandomMainText] = useState(mainText[Math.floor(Math.random() * mainText.length)]);
 
@@ -53,10 +54,35 @@ const MainPage = () => {
     }, 500)
   }
 
+  const buttonClassName = "max-w-[300px] w-full";
+  const fade = animate ? "fade-out" : "fade-in-two";
+  const fadeNumber = animate ? "fade-out-number" : "fade-in-number";
+
   return (
     <div className="flex flex-col gap-y-10 items-center justify-center p-6 pt-20 md:p-10 md:h-[75vh]">
-      {currentIndex === 3 ? (
-        <div className={animate ? "fade-out-number" : "fade-in-number"}>
+      {currentIndex === 1 && (
+        <div className="flex flex-col gap-y-10 max-w-2xl items-center">
+          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={fadeNumber}/>
+          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${fade}`}>{mainLang.how_to_play}</h1>
+          <p className={`text-center md:text-left text-xl md:text-2xl ${fadeNumber}`}>
+            {mainLang.how_to_play_desc}
+          </p>
+        </div>
+      )}
+
+      {currentIndex === 2 && (
+        <>
+          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={fadeNumber}/>
+          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${fade}`}>{mainLang.select_mode}</h1>
+          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${fadeNumber}`}>
+            <Button className={buttonClassName} onClick={() => selectMode("number")} text={mainLang.number}/>
+            <Button className={buttonClassName} onClick={() => selectMode("word")} text={mainLang.word}/>
+          </div>
+        </>
+      )}
+
+      {currentIndex === 3 && (
+        <div className={fadeNumber}>
           <CountdownCircleTimer
             isPlaying={true}
             duration={2}
@@ -67,34 +93,19 @@ const MainPage = () => {
             {() => <h2 className="w-[140px] text-2xl font-semibold text-center">{selectedMode === "number" ? mainLang.preparing_numbers_for_you : mainLang.preparing_words_for_you}</h2>}
           </CountdownCircleTimer>
         </div>
-      ) : currentIndex === 2 ? (
-        <>
-          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
-          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.select_mode}</h1>
-          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("number")}} text={mainLang.number}/>
-            <Button className="max-w-[300px] w-full" onClick={() => {selectMode("word")}} text={mainLang.word}/>
-          </div>
-        </>
-      ) : currentIndex === 1 ? (
-        <div className="flex flex-col gap-y-10 max-w-2xl items-center">
-          <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={animate ? "fade-out-number" : "fade-in-number"}/>
-          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>{mainLang.how_to_play}</h1>
-          <p className={`text-center md:text-left text-xl md:text-2xl ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            {mainLang.how_to_play_desc}
-          </p>
-        </div>
-      ) : (
-        <>
-          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${animate ? "fade-out" : "fade-in-two"}`}>Memoryquiz</h1>
-          <p className={`text-xl md:text-2xl z-50 text-center ${animate ? "fade-out" : "fade-in-two"}`}>{randomMainText}</p>
+      )}
 
-          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${animate ? "fade-out-number" : "fade-in-number"}`}>
-            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(2)}} text={mainLang.play_game}/>
-            <Button className="max-w-[300px] w-full" onClick={() => {changeIndex(1)}} text={mainLang.how_to_play}/>
+      {!currentIndex && (
+        <>
+          <h1 className={`text-5xl md:text-6xl font-bold z-50 ${fade}`}>Memoryquiz</h1>
+          <p className={`text-xl md:text-2xl z-50 text-center ${fade}`}>{randomMainText}</p>
+
+          <div className={`flex flex-col gap-y-4 items-center w-[300px] z-50 ${fadeNumber}`}>
+            <Button className={buttonClassName} onClick={() => changeIndex(2)} text={mainLang.play_game}/>
+            <Button className={buttonClassName} onClick={() => changeIndex(1)} text={mainLang.how_to_play}/>
           </div>
 
-          <div className={`text-2xl flex flex-col items-center gap-y-4 ${animate ? "fade-out-number" : "fade-in-number"}`}>
+          <div className={`text-2xl flex flex-col items-center gap-y-4 ${fadeNumber}`}>
             <h1 className="font-bold text-3xl">{mainLang.switch_language}</h1>
 
             <div className="flex items-center gap-x-8">
@@ -104,6 +115,7 @@ const MainPage = () => {
           </div>
         </>
       )}
+
       {showNumFloat()}
     </div>
   )
