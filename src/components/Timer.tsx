@@ -1,16 +1,15 @@
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
+import { TimerCircleProps } from '../types'
 
-interface TimerCircleProps {
-  duration: number
-  className?: string
-  isPlaying?: boolean
-  onUpdate?: (val: number) => void
-  initialRemainingTime?: number
-  updateInterval?: number
-  onComplete?: () => void
-}
-
-const TimerCircle = ({ duration, className, isPlaying, onUpdate, initialRemainingTime, updateInterval, onComplete }: TimerCircleProps) => {
+const TimerCircle = ({ 
+  duration, 
+  className, 
+  isPlaying, 
+  onUpdate, 
+  initialRemainingTime, 
+  updateInterval, 
+  onComplete 
+}: TimerCircleProps) => {
   return (
     <div className={className}>
       <CountdownCircleTimer

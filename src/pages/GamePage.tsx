@@ -13,6 +13,11 @@ interface GameOver {
   text: string | ReactNode
 }
 
+interface Limit {
+  min: number;
+  max: number;
+}
+
 const GamePage = () => {
   const navigate = useNavigate();
   const { lang, mode } = useParams();
@@ -20,10 +25,7 @@ const GamePage = () => {
 
   const [score, setScore] = useState(0);
   const [numRange, setNumRange] = useState(100);
-  const [wordRange, setWordRange] = useState({
-    min: 0,
-    max: 5
-  });
+  const [wordRange, setWordRange] = useState<Limit>({ min: 0, max: 5 });
 
   const wordList = (lang === "th" ? THAI_WORDS : WORDS).filter(word => word.length <= wordRange.max && word.length >= wordRange.min);
 
@@ -80,43 +82,41 @@ const GamePage = () => {
 
   useEffect(() => {
     if (mode === "number"){
-      score >= 5 && setNumRange(1000)
-      score >= 10 && setNumRange(10000)
-      score >= 20 && setNumRange(100000)
-      score >= 50 && setNumRange(1000000)
-      score >= 100 && setNumRange(10000000)
-      score >= 150 && setNumRange(100000000)
-      score >= 200 && setNumRange(1000000000)
+      const scoreRanges: number[] = [5, 10, 20, 50, 80, 100, 120, 150, 180, 200, 250];
+      for (let range of scoreRanges){
+        const index: number = scoreRanges.findIndex(score => score === range);
+        score >= range && setNumRange(Number(`1e+${index + 2}`));
+      }
     } else {
-      score >= 5 && setWordRange({ min:0, max:6 })
-      score >= 10 && setWordRange({ min:5, max:8 })
-      score >= 20 && setWordRange({ min:6, max:10 })
-      score >= 30 && setWordRange({ min:8, max:12 })
-      score >= 40 && setWordRange({ min:10, max:15 })
-      score >= 50 && setWordRange({ min:12, max:60 })
+      const wordRanges = [
+        { score: 5, word_range: { min: 0, max: 5 } },
+        { score: 10, word_range: { min: 4, max: 6 } },
+        { score: 15, word_range: { min: 6, max: 8 } },
+        { score: 20, word_range: { min: 8, max: 10 } },
+        { score: 25, word_range: { min: 10, max: 12 } },
+        { score: 30, word_range: { min: 12, max: 15 } },
+        { score: 40, word_range: { min: 15, max: Infinity } },
+      ]
+      for (let { score: range, word_range } of wordRanges){
+        score >= range && setWordRange(word_range)
+      }
     }
   }, [score, enteredValue, setEnteredValue])
 
   const checkIfGameOver = (text: string | ReactNode) => {
-    setGameOver({
-      open: true,
-      text: text
-    })
+    setGameOver({ open: true, text });
     setTimeout(() => {
-      setGameOver({
-        open: false,
-        text: text
-      })
-      setChangingSection(true)
+      setGameOver({ open: false, text });
+      setChangingSection(true);
     }, 2000)
     setTimeout(() => {
-      setChangingSection(false)
-      setShowResult(true)
+      setChangingSection(false);
+      setShowResult(true);
     }, 2300)
   }
 
   const handleEnter = () => {
-    mode === "number" ? setEnteredValue(numValue) : setEnteredValue(wordValue)
+    setEnteredValue(mode === "number" ? numValue : wordValue);
     if (numValue == num || wordValue == word){
       nextNumberOrWord()
     } else {
@@ -135,10 +135,10 @@ const GamePage = () => {
 
   const clickDidntSeeNum = () => {
     setDidntSeeAnswer(true)
+    setTimer(prev => prev - 3)
     setTimeout(() => {
       setDidntSeeAnswer(false)
     }, 500)
-    setTimer(timer - 3)
   }
 
   const textClassName = 'text-[calc(50px_+_5vw)] md:text-[108px] leading-[20vw]';
@@ -148,7 +148,7 @@ const GamePage = () => {
     setQuit(false)
     setChangingSection(true)
     setTimeout(() => {
-      lang === "th" ? navigate("/th") : navigate("/")
+      navigate(lang === "th" ? "/th" : "/");
     }, 800)
   }
 
@@ -165,15 +165,14 @@ const GamePage = () => {
           )}
 
           <h1 className="text-4xl font-bold">{mainLang.score}: {score}</h1>
-            {!hideAnswer && (
+            {!hideAnswer ? (
               <TimerCircle 
                 isPlaying={true}
                 duration={3} 
                 className={`${changingSection ? 'fade-out-number' : 'fade-in-number'} flex justify-center`}
                 onComplete={startGame}
               />
-            )}
-            {hideAnswer && (
+            ) : (
               <div className="relative flex">
                 <TimerCircle 
                   isPlaying={enteredValue === undefined} 

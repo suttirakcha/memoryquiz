@@ -17,3 +17,13 @@ export interface ClearGameProps {
   score: number
   lang: string | undefined
 }
+
+export interface TimerCircleProps {
+  duration: number
+  className?: string
+  isPlaying?: boolean
+  onUpdate?: (val: number) => void
+  initialRemainingTime?: number
+  updateInterval?: number
+  onComplete?: () => void
+}
