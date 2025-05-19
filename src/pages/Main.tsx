@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Button from "../components/Button"
 import { useNavigate, useParams } from "react-router-dom"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
@@ -53,6 +53,12 @@ const MainPage = () => {
       window.location.replace(link)
     }, 500)
   }
+
+  useEffect(() => {
+    if (lang !== undefined && lang !== "th"){
+      navigate("/404");
+    }
+  }, [])
 
   const buttonClassName = "max-w-[300px] w-full";
   const fade = animate ? "fade-out" : "fade-in-two";
