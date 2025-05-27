@@ -5,8 +5,10 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import NumFloat from "../components/NumFloat"
 import BackButton from "../components/BackButton"
 import useLanguage from "../hooks/useLanguage"
+import { useTheme } from "../hooks/useTheme"
 
 const MainPage = () => {
+  const { ThemeSwitcher } = useTheme();
   const navigate = useNavigate();
   const { lang } = useParams();
   const { mainLang } = useLanguage(lang);
@@ -66,6 +68,7 @@ const MainPage = () => {
 
   return (
     <div className="flex flex-col gap-y-10 items-center justify-center p-6 pt-20 md:p-10 md:h-[75vh]">
+      <ThemeSwitcher className="absolute top-6 right-6 flex items-center text-2xl gap-4"/>
       {currentIndex === 1 && (
         <div className="flex flex-col gap-y-10 max-w-2xl items-center">
           <BackButton text={mainLang.back} onClick={() => changeIndex(0)} className={fadeNumber}/>

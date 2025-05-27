@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  darkMode: 'selector',
   content: [
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
@@ -7,6 +8,9 @@ module.exports = {
     extend: {
       zIndex: {
         1: 1
+      },
+      colors: {
+        lightpink: "#ffcccc"
       }
     },
   },

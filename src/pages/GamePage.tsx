@@ -193,11 +193,11 @@ const GamePage = () => {
                   onChange={handleSetValue} 
                   onKeyDown={(e) => {(e.key === "Enter" && (numValue || wordValue)) && handleEnter()}}
                   value={mode === "number" ? numValue || "" : wordValue || ""} 
-                  className={`w-full max-w-lg h-[60px] border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${checkIfCorrect ? "bg-green-600 border-green-700 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400" : "bg-red-600 border-red-700 text-white"} border-2 px-3 text-4xl rounded-full`}
+                  className={`w-full max-w-lg h-[60px] border outline-none text-black ${hideAnswer ? 'fade-in-input opacity-0' : ''} text-center ${checkIfCorrect ? "bg-green-600 border-green-700 dark:bg-green-700 dark:border-green-600 text-white" : enteredValue === undefined ? "bg-pink-200 border-pink-400 dark:bg-pink-400 dark:border-pink-200" : "bg-red-600 border-red-700 dark:bg-red-700 dark:border-red-600 text-white"} border-2 px-3 text-4xl rounded-full`}
                   disabled={enteredValue !== undefined || gameOver.open}
                 />
                 <div className={`${hideAnswer ? 'fade-in-input opacity-0' : ''} flex flex-col gap-y-4 items-center`}>
-                  <Button disabled={checkIfCorrect} className="w-[160px]" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
+                  <Button disabled={checkIfCorrect} className="w-40" onClick={() => {(numValue || wordValue) && handleEnter()}} text={mainLang.enter}/>
                   <button className="text-pink-600 text-xl" onClick={clickDidntSeeNum}>
                     {mode === "number" ? mainLang.didnt_see_num : mainLang.didnt_see_word}
                   </button>

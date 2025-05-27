@@ -21,8 +21,11 @@
 }
 
 @layer base {
+  body {
+    @apply bg-lightpink dark:bg-pink-900 transition-[background] duration-300 w-full h-full fixed text-pink-600 dark:text-pink-300;
+  }
   .main-btn {
-    @apply transition-[background] rounded-full text-white px-6 py-4 text-2xl;
+    @apply bg-pink-600 dark:bg-pink-300 transition-[background] rounded-full text-white dark:text-pink-900 px-6 py-4 text-2xl;
   }
   .back-btn {
     @apply font-semibold flex items-center gap-x-2 absolute top-4 left-4 text-xl md:top-6 md:left-6 md:text-2xl;

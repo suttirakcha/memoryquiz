@@ -1,11 +1,3 @@
-body {
-  background-color:#ffcccc;
-  color:#db2777;
-  position:fixed;
-  width:100%;
-  height:100%;
-}
-
 .fade-in {
   animation:fadeSlideIn 300ms forwards;
 }
